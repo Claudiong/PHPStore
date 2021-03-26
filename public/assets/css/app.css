@@ -1,0 +1,37 @@
+/* app.css*/
+ * {
+  box-shadow: inset 0px 0px 1px rgba(255,0,0,0.1);
+} 
+
+.navegacao {
+  background-color: rgb(154, 171, 194);
+  color: black;
+}
+
+.rodape {
+  background-color: rgb(60, 74, 82);
+  color: white;
+
+}
+
+.nav-item {
+text-decoration: none;
+color: white;
+margin: 0px 5px;
+}
+
+.nav-item:hover {
+text-decoration: underline;
+color: white;
+}
+
+.espaco-fundo {
+  margin-bottom: 80px;
+}
+
+.box-produto {
+  border:1px solid rgb(150,150,150);
+  border-radius:10px ;
+}
+
+

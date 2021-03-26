@@ -1,0 +1,24 @@
+ ######Clientes#######
+	id_cliente
+	email 
+	senha 
+	nome_completo
+	morada 
+	cidade 
+	telefone
+	purl 
+	created_at
+	update_at 
+	deleted_at
+	PRIMARY KEY (id_cliente) USING BTREE
+
+Array
+(
+    [text_email] => claudio@basesoft.com.br
+    [text_senha1] => 1111
+    [text_senha2] => 1111
+    [text_nome_completo] => Claudio GUIMARAES
+    [text_Endereço] => rua uruguaiana 94
+    [text_cidade] => Rio de Janeiro
+    [text_telefone] => 2195256824
+)

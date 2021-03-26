@@ -1,0 +1,21 @@
+{
+    "name": "claudio/phpstore",
+    "description": "Loja OnLine em PHP",
+    "type": "project",
+    "authors": [
+        {  "name": "Eagle",
+            "email": "Claudioneivaguimaraes@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "core\\" :"core/"
+        }, 
+        "files": [
+          "config.php"
+        ]
+    }
+}
