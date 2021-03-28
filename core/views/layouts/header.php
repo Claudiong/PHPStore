@@ -24,8 +24,7 @@ if (isset($_SESSION['carrinho'])) {
             <!--verifica se existe cliente na sessao-->
             
             <?php if (store::clienteLogado()):?>
-              <!-- <a href="?a=minha_conta"  class="nav-item"> A minha conta</a>-->
-              <i class="fas fa-user"> </i> <?=$_SESSION['usuario']?>
+                 <a href="?a=perfil" <i class="fas fa-user"> </i> <?=$_SESSION['usuario']?></a>    
               <a href="?a=logout"  class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
 
             <?php else:?> 

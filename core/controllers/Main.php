@@ -221,9 +221,43 @@ class Main {
       unset($_SESSION['usuario']); 
       unset($_SESSION['nome_cliente']);
     store::redirect();  
-   }
-       
+   }      
 
+   public function perfil() {
+
+      if (!Store::clienteLogado()) {
+         Store::redirect();
+         return;
+      }
+
+      $cliente = new Clientes();
+      $dados = [
+         'dados_cliente' => $cliente->buscar_dados_cliente($_SESSION['cliente']),
+      ];   
+
+
+      Store::layout([
+            'layouts/html_header',
+            'layouts/header',
+            'perfil',
+            'perfil_navegacao',
+            'layouts/footer',
+            'layouts/html_footer',],$dados);
+
+
+
+      }
+
+
+     
+      
+
+
+
+    
+
+
+   
 
        
    
