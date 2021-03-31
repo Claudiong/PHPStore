@@ -231,16 +231,29 @@ class Main {
       }
 
       $cliente = new Clientes();
+      // $dados = [
+      //   'dados_cliente' => $cliente->buscar_dados_cliente($_SESSION['cliente']),
+      //];   
+      $dtemp = $cliente->buscar_dados_cliente($_SESSION['cliente']);
+      $dados_cliente = [
+      'email' => $dtemp->email,
+      'Nome Completo' => $dtemp->nome_completo,
+      'Endereço' => $dtemp->morada,
+      'Cidade' => $dtemp->cidade,
+      'telefone' => $dtemp->telefone,
+      ];
+
       $dados = [
-         'dados_cliente' => $cliente->buscar_dados_cliente($_SESSION['cliente']),
-      ];   
+       'dados_cliente' => $dados_cliente
+      ];
+
 
 
       Store::layout([
             'layouts/html_header',
             'layouts/header',
-            'perfil',
             'perfil_navegacao',
+            'perfil',            
             'layouts/footer',
             'layouts/html_footer',],$dados);
 
