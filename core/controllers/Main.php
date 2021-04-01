@@ -230,10 +230,7 @@ class Main {
          return;
       }
 
-      $cliente = new Clientes();
-      // $dados = [
-      //   'dados_cliente' => $cliente->buscar_dados_cliente($_SESSION['cliente']),
-      //];   
+      $cliente = new Clientes();      
       $dtemp = $cliente->buscar_dados_cliente($_SESSION['cliente']);
       $dados_cliente = [
       'email' => $dtemp->email,
@@ -259,21 +256,97 @@ class Main {
 
 
 
+      } 
+       
+
+      public function alterar_dados_pessoais() {
+
+         if (!store::clienteLogado()) {
+            store::redirect();
+            return;
+         }
+
+
+         // $erro = '';
+         // if (isset($_SESSION['erro'])) {
+         //    $erro = $_SESSION['erro'];
+         //    unset($_SESSION['erro']);
+
+         // }
+
+         $cliente = new Clientes();      
+          
+
+
+         $dados= [
+            'dados_pessoais' =>$cliente->buscar_dados_cliente($_SESSION['cliente'])
+         ];
+
+
+         // if (!empty($erro) ) {
+         //    $dados['erro'] = $erro;
+         // }
+
+         Store::layout([
+            'layouts/html_header',
+            'layouts/header',
+            'perfil_navegacao',
+            'alterar_dados_pessoais',            
+            'layouts/footer',
+            'layouts/html_footer',],$dados);
+
+
+
       }
-
-
-     
       
 
+      public function alterar_dados_pessoais_submit() {
+         echo 'alterar dados pessoais submit';
+         if (!store::clienteLogado()) {
+            store::redirect();
+            return;
+         }
+
+         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            Store::redirect();
+            return;
+         }
 
 
-    
+         $email = trim($_POST['text_email']);
+         $nome_completo = trim($_POST['text_nome_completo']);
+         $morada = trim($_POST['text_morada']);
+         $cidade = trim($_POST['text_cidade']);
+         $telefone = trim($_POST['text_telefone']);
+
+         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {          
+            
+            $_SESSION['erro']= 'Endereço de email inválido';
+            $this->alterar_dados_pessoais();     
+         }
 
 
-   
 
+      }
+
+      public function alterar_password() {
+         echo 'alterar dados password';
+
+      }
+
+      public function alterar_password_submit() {
+         echo 'alterar dados password submit';
+
+      }
+
+      public function historico_encomendas() {
+         echo 'historico encomendas';
+
+      }
+      
        
-   
 
 
 }
+
+

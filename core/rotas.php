@@ -17,6 +17,13 @@ $rotas = [
 
      //Perfil
      'perfil'=>'main@perfil',
+     'alterar_dados_pessoais'=>'main@alterar_dados_pessoais',
+     'alterar_dados_pessoais_submit'=>'main@alterar_dados_pessoais_submit',
+     'alterar_password'=>'main@alterar_password',
+     'alterar_password_submit'=>'main@alterar_password_submit',
+     'historico_encomendas'=>'main@historico_encomendas',
+     
+
      
       //Carrinho
      'remover_produto_carrinho'=>'carrinho@remover_produto_carrinho',
