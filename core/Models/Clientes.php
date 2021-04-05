@@ -6,7 +6,30 @@ use core\classes\Store;
 
 class Clientes {
 
-    public function verificar_email_existe($email){
+    
+   public function verificar_email_existe_base($email, $id_cliente){
+        
+      //Verifica na base de dados se existe cliente com mesmo email
+      $bd = new Database();
+      $parametros = [
+         ':email'=>strtolower(trim($email)),
+         ':id_cliente'=>$id_cliente
+      ];
+
+      $resultados = $bd->select("SELECT ID_CLIENTE, EMAIL FROM CLIENTES WHERE EMAIL = :email and ID_CLIENTE<>:id_cliente"
+      , $parametros);
+      if (count($resultados) !=0){
+        return true;
+      }  
+      else
+        return false;              
+  }
+   
+   
+   
+   
+   
+   public function verificar_email_existe($email){
         
         //Verifica na base de dados se existe cliente com mesmo email
         $bd = new Database();
@@ -139,4 +162,41 @@ class Clientes {
 
 
    }
+
+
+
+
+   public function atualizar_dados_cliente ($email, $nome_completo, $endereco, $cidade, $telefone ){
+      
+      $bd = new Database();
+      $parametros = [
+         ':email' => strtolower(trim($email)),        
+         ':nome_completo'=>trim($nome_completo),
+         ':endereco'=>trim($endereco),
+         ':cidade'=>trim($cidade),
+         ':telefone'=>trim($telefone),
+         ':id_cliente'=>$_SESSION['cliente']
+      ];
+
+      // echo '<pre>';
+      // print_r($parametros);
+      // echo '</pre>';
+      // die('=====>teste5');
+
+      $bd->update("update clientes set email=:email,      
+      nome_completo=:nome_completo,
+      morada=:endereco,
+      cidade=:cidade,
+      telefone=:telefone,Updated_at=NOW()
+      where id_cliente=:id_cliente", $parametros);
+
+  }
+
+
+
+
+
+
+
+
 }

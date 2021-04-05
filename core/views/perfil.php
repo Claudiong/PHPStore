@@ -5,7 +5,7 @@
             <?php foreach ($dados_cliente as $key => $valor) : ?>
                <tr>
                   <td class="text-end" width="50%"><strong><?= $key ?>:</strong></td>
-                  <td class="text-left" width="50%"><?= $valor ?>:</td>
+                  <td class="text-left" width="50%"><?= $valor ?></td>
                </tr>
             <?php endforeach ?>
          </table>

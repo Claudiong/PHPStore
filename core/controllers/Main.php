@@ -302,10 +302,17 @@ class Main {
 
       public function alterar_dados_pessoais_submit() {
          echo 'alterar dados pessoais submit';
+         
+         
+         
+         
          if (!store::clienteLogado()) {
             store::redirect();
             return;
          }
+         
+         
+
 
          if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             Store::redirect();
@@ -319,13 +326,37 @@ class Main {
          $cidade = trim($_POST['text_cidade']);
          $telefone = trim($_POST['text_telefone']);
 
-         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {          
-            
+         
+         
+         
+         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {                   
             $_SESSION['erro']= 'Endereço de email inválido';
             $this->alterar_dados_pessoais();     
+            return;
          }
 
+         
+         if (empty($nome_completo) || empty($morada) || empty($cidade)) {
+            $_SESSION['erro']= 'Campos Obrigatórios não informados';
+            $this->alterar_dados_pessoais();     
+            return;
+         }
 
+         
+         $Email_outro_Clie = new Clientes();
+         $outro_Clie=$Email_outro_Clie->verificar_email_existe_base($email, $_SESSION['cliente']);
+         if ($outro_Clie) {
+            $_SESSION['erro']= 'Email existente em outro cliente';
+            $this->alterar_dados_pessoais();     
+            return;            
+         }
+         
+         
+         $clientes = new clientes();
+         $clientes -> atualizar_dados_cliente($email, $nome_completo, $morada, $cidade, $telefone);
+         store::redirect('perfil');
+         $_SESSION['usuario']=$email;
+         $_SESSION['nome_cliente']=$nome_completo;
 
       }
 
