@@ -264,28 +264,13 @@ class Main {
          if (!store::clienteLogado()) {
             store::redirect();
             return;
-         }
+         }        
 
-
-         // $erro = '';
-         // if (isset($_SESSION['erro'])) {
-         //    $erro = $_SESSION['erro'];
-         //    unset($_SESSION['erro']);
-
-         // }
-
-         $cliente = new Clientes();      
-          
-
+         $cliente = new Clientes();            
 
          $dados= [
             'dados_pessoais' =>$cliente->buscar_dados_cliente($_SESSION['cliente'])
-         ];
-
-
-         // if (!empty($erro) ) {
-         //    $dados['erro'] = $erro;
-         // }
+         ];        
 
          Store::layout([
             'layouts/html_header',
@@ -294,17 +279,11 @@ class Main {
             'alterar_dados_pessoais',            
             'layouts/footer',
             'layouts/html_footer',],$dados);
-
-
-
       }
       
 
       public function alterar_dados_pessoais_submit() {
-         echo 'alterar dados pessoais submit';
-         
-         
-         
+         echo 'alterar dados pessoais submit';     
          
          if (!store::clienteLogado()) {
             store::redirect();
@@ -361,12 +340,56 @@ class Main {
       }
 
       public function alterar_password() {
-         echo 'alterar dados password';
 
-      }
+         if (!store::clienteLogado()) {
+            $this->index();
+            return;
+          }
+
+          if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            Store::redirect();
+            return;
+         }
+
+
+         $senha_stual = trim($_POST['text_password']);
+         $nova_senha = trim($_POST['text_nova_password']);
+         $repitir_nova_senha = trim($_POST['text_repita_password']);
+         
+
+         if (($senha_stual) !=$nova_senha)) {
+            $_SESSION['erro']= 'Senhas diferentes';
+            $this->alterar_password();     
+            return;
+         }
+
+
+          $cliente = new Clientes();     
+
+          $dados= [
+            'dados_pessoais' =>$cliente->buscar_dados_cliente($_SESSION['cliente'])
+         ];
+
+
+          Store::layout([
+            'layouts/html_header',
+            'layouts/header',
+            'alterar_password',
+            'layouts/footer',
+            'layouts/html_footer',], $dados);    
+      
+         }
+
+      
 
       public function alterar_password_submit() {
-         echo 'alterar dados password submit';
+         
+         
+
+
+
+
+
 
       }
 
