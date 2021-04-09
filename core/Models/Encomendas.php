@@ -4,7 +4,16 @@ namespace core\models;
 use core\classes\Database;
 use core\classes\Store;
 
+
 class Encomendas {
+
+   protected $conexao;
+
+   public function __construct()
+   {      
+      $this->conexao = new Database();      
+   }
+
 
    public function guardar_encomenda($dados_encomenda, $dados_produtos) {
 
@@ -35,16 +44,8 @@ class Encomendas {
    :mensagem,
    NOW(), NOW())", $parametros);
 
-
    //buscar o id da enconenda
    $id_encomenda = $bd->select("SELECT MAX(id_encomenda) id_encomenda from encomendas")[0]->id_encomenda;
-
-//    echo '<pre>';
-//    print_r($dados_produtos);
-//    echo '</pre>';
-//    die('teste');
-
-
    foreach ($dados_produtos as $produto) {     
      $parametros = [
       ':id_encomenda'=>$id_encomenda,
@@ -56,4 +57,23 @@ class Encomendas {
    $bd->insert ("INSERT INTO ENCOMENDA_PRODUTO VALUES (0,:id_encomenda,:designacao_produto, :preco_unidade, :quantidade,NOW())", $parametros);
   }
  } 
+
+
+public function buscar_historico_encomendas($id_cliente) {
+
+    $parametros = [
+     ':id_cliente'=>$id_cliente
+    ];
+
+    $resultados=$this->conexao->select("Select id_encomenda, codigo_encomenda, data_encomenda, 
+   status From encomendas
+   WHERE id_cliente=:id_cliente
+   order by data_encomenda DESC",$parametros);
+  return $resultados;
+
+} 
+
+
+
+
 }
