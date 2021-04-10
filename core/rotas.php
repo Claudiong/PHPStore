@@ -22,6 +22,7 @@ $rotas = [
      'alterar_password'=>'main@alterar_password',
      'alterar_password_submit'=>'main@alterar_password_submit',
      'historico_encomendas'=>'main@historico_encomendas',
+     'detalhe_encomenda'=>'main@historico_encomendas_detalhe',
      
 
      

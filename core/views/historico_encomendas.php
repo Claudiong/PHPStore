@@ -1,3 +1,6 @@
+<?php 
+use core\classes\store;
+?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -28,7 +31,7 @@
                                     <?= $encomendas->status ?>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <a href=""> Detalhes </a>
+                                    <a href="?a=detalhe_encomenda&id=<?= Store::aesEncriptar($encomendas->id_encomenda)?>"> Detalhes </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

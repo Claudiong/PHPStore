@@ -439,4 +439,9 @@ class Main
 
 
    }
+
+
+   public function historico_encomendas_detalhe (){
+      echo 'teste';
+   }
 }
