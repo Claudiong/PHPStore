@@ -23,9 +23,10 @@ $rotas = [
      'alterar_password_submit'=>'main@alterar_password_submit',
      'historico_encomendas'=>'main@historico_encomendas',
      'detalhe_encomenda'=>'main@historico_encomendas_detalhe',
-     
 
-     
+     //Pagamento
+     'pagamento' => 'main@pagamento',
+          
       //Carrinho
      'remover_produto_carrinho'=>'carrinho@remover_produto_carrinho',
      'adicionar_carrinho'=>'carrinho@adicionar_carrinho',

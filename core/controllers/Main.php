@@ -442,6 +442,81 @@ class Main
 
 
    public function historico_encomendas_detalhe (){
-      echo 'teste';
+      if (!store::clienteLogado()) {
+         $this->index();
+         return;
+      }
+
+      
+
+      if (!isset($_GET['id'])) {
+         store::redirect();
+         return;
+      }
+
+
+
+      $id_encomenda=null;
+      if (strlen($_GET['id'])!=32) {       
+         store::redirect();
+         return;
+      } else {
+         $id_encomenda=store::aesDesencriptar($_GET['id']);
+         if (empty($id_encomenda)) {
+            store::redirect();
+            return;
+
+         }
+
+         
+         $encomendas = new Encomendas;
+         $resultado = $encomendas->verificar_encomenda_cliente($_SESSION['cliente'],$id_encomenda);
+         if(!$resultado) {            
+            store::redirect();
+            return;
+         }
+
+         $detalhe_encomenda = $encomendas->detalhes_de_encomenda($_SESSION['cliente'], $id_encomenda);
+         $data = ['dados_encomenda'=>$detalhe_encomenda['dados_encomenda'],
+                  'produtos_encomenda'=>$detalhe_encomenda['produtos_encomenda']];        
+            
+
+         Store::layout([
+            'layouts/html_header',
+            'layouts/header',
+            'perfil_navegacao',
+            'encomenda_datalhe',
+            'layouts/footer',
+            'layouts/html_footer',
+         ], $data);
+         // store::printdata($detalhe_encomenda);
+
+      }
    }
+
+
+   public function pagamento() {
+
+      
+
+      if (isset($_GET['cod'])) {
+         
+           $encomendas = new Encomendas;         
+         if ($encomendas->verifica_pagamento($_GET['cod'])) {
+            echo 'pagamento efetuado';
+         }
+         else {
+            echo 'pagamento NAO efetuado';
+         }
+
+
+
+      }
+
+
+   }
+      
+
+
+   
 }

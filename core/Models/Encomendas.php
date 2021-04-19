@@ -74,6 +74,73 @@ public function buscar_historico_encomendas($id_cliente) {
 } 
 
 
+public function verificar_encomenda_cliente($id_cliente, $id_encomenda) {
+
+  $parametros = [
+   ':id_cliente'=>$id_cliente,
+    'id_encomenda'=>$id_encomenda
+  ];
+
+  $resultados=$this->conexao->select("Select id_encomenda From encomendas
+ WHERE id_cliente=:id_cliente and
+ id_encomenda = :id_encomenda 
+ order by data_encomenda DESC",$parametros);
+ return count($resultados)==0 ? false : true; 
+
+
+} 
+
+
+public function detalhes_de_encomenda ($id_cliente, $id_encomenda) {
+  $parametros = [
+    ':id_cliente'=> $id_cliente, 
+    ':id_encomenda'=>$id_encomenda
+  ];
+
+  $dados_encomenda=$this->conexao->select("
+  Select * 
+  from encomendas where id_cliente=:id_cliente 
+  and id_encomenda-:id_encomenda", $parametros)[0];
+
+  $parametros = [
+    ':id_encomenda'=>$id_encomenda
+  ];
+  
+  $produtos_encomenda=$this->conexao->select("
+  Select * 
+  from encomenda_produto where id_encomenda=:id_encomenda", $parametros);
+
+  return ['dados_encomenda'=>$dados_encomenda,
+          'produtos_encomenda'=>$produtos_encomenda 
+];
+
+}
+
+
+
+public function verifica_pagamento($codigo_encomenda) {
+
+  $parametros = ['codigo_encomenda' => $codigo_encomenda];
+  $resultados=$this->conexao->select('select * from encomendas where codigo_encomenda=:codigo_encomenda and status="Pendente"', $parametros);
+
+  if (count($resultados)==0) {
+    return false;
+  } 
+  else {
+    $resultados=$this->conexao->Update('update encomendas set status="EM PROCESSAMENTO", updated_at=now() where codigo_encomenda=:codigo_encomenda and status="Pendente"', $parametros);
+    return true;
+  }
+
+}
+
+
+
+
+
+
+
+
+
 
 
 }

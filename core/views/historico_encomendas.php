@@ -37,7 +37,7 @@ use core\classes\store;
                         <?php endforeach; ?>
                     </tbody>
                 </table>                
-                <p class="text-end"> Total Encomendas:<strong><?= count($historico_encomendas) ?></strong></p>
+                <p class="text-end background-color=dark"> Total Encomendas:<strong><?= count($historico_encomendas) ?></strong></p>
             <?php endif; ?>
             
         </div>
